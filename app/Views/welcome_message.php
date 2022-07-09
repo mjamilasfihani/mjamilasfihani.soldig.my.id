@@ -3,7 +3,8 @@
 
 <div class="container-fluid mb-5">
     <?= $this->include('partials/alert') ?>
-    <h3 class="text-dark mb-3">Home (Halaman Utama)</h3>
+    <h3 class="text-dark mb-2">Home (Halaman Utama)</h3>
+    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Produk</button>
     <div class="card mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Daftar Produk</h6>
@@ -31,11 +32,11 @@
                         <td>RP. <?= $product['product_price']; ?></td>
                         <td><?= $product['product_stock']; ?></td>
                         <td>
-                            <img src="images/<?= $product['product_code']; ?>" class="img-thumbnail" style="width: 200px;">
+                            <img src="images/<?= $product['product_code']; ?>" class="img-thumbnail" style="width: 100px;">
                         </td>
                         <td><?= strtok($product['product_code'], '.'); ?></td>
                         <td>
-                            <form action="cart" method="post">
+                            <form action="cart/create" method="post">
                                 <input type="number" name="product_id" value="<?= $product['product_id'] ?>" hidden>
                                 <button type="submit" class="btn btn-primary">Beli</button>
                             </form>
@@ -44,13 +45,15 @@
                     <!-- End of Table -->
                   <?php endforeach; ?>
                 <?php else: ?>
-                    Belum Ada Produk
+                    <tr>
+                        <td>Belum Ada Pembelian</td>
+                    </tr>
                 <?php endif; ?>
               </tbody>
             </table>
         </div>
     </div>
-    <a href="cart" class="btn btn-outline-primary">Lihat Shoping Cart</a>
+    <a href="cart" class="btn btn-outline-primary">Lihat Shoping Cart <sup><?= $total; ?></sup></a>
 </div>
 
 <?= $this->endSection(); ?>
