@@ -67,7 +67,7 @@ class Products extends BaseController
 		else
 		{
 			// Take only 2 char of Product Name
-			$code = substr($name, 2);
+			$code = substr($name, 0, 2);
 		}
 
 		// Count the total of product before inserting into
