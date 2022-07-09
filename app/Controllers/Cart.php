@@ -12,7 +12,23 @@ class Cart extends BaseController
 		$builder->join('products', 'products.product_id = carts.cart_product_id');
 		$query = $builder->get();
 
-		return view('cart', ['datas' => $query->getResult('array')]);
+		// Build the query
+		$query = $query->getResult('array');
+
+		// Count the total
+		$totalPrice = 0;
+		if (count($query) > 0)
+		{
+			foreach ($query as $data)
+			{
+				$totalPrice = ($data['product_price'] * $data['cart_qty']) + $totalPrice;
+			}
+		}
+
+		return view('cart', [
+			'datas'      => $query,
+			'totalPrice' => $totalPrice,
+		]);
 	}
 
 	public function create()
