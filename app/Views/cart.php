@@ -56,7 +56,7 @@
     </div>
     <a href="<?= base_url() ?>" class="btn btn-outline-primary">Kembali ke Awal</a>
     <?php if (count($datas) > 0): ?>
-        <a href="<?= base_url('pay') ?>" class="btn btn-danger">Checkout</a>
+        <a href="<?= base_url('pay') ?>" class="btn btn-danger">Checkout dengan Total RP. <?= $totalPrice; ?></a>
     <?php endif; ?>
 </div>
 
