@@ -46,7 +46,7 @@ class Products extends BaseController
 		// Saving the Image than store any datas into Database
 		$image->move(WRITEPATH . 'uploads', $newImage);
 		(new ProductsModel)->insert([
-			'product_name'  => $name,
+			'product_name'  => ucwords($name),
 			'product_price' => $price,
 			'product_stock' => $stock,
 			'product_code'  => $code = $newImage,

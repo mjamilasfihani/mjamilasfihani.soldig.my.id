@@ -9,7 +9,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-home"></i><span>Home</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -19,6 +19,9 @@
 			    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
 			        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
 			            <ul class="navbar-nav flex-nowrap ms-auto">
+			            	<li class="nav-item dropdown no-arrow mx-1">
+			            		<button type="button" class="dropdown-toggle btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Produk</button>
+			            	</li>
 			                <li class="nav-item dropdown no-arrow mx-1">
 			                    <a class="dropdown-toggle nav-link" aria-expanded="false" href="#"><span class="badge bg-danger badge-counter">0</span><i class="fas fa-shopping-cart fa-fw"></i></a>
 			                </li>
