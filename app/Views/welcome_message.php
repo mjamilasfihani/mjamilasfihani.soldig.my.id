@@ -1,5 +1,5 @@
-<?= $this->extend('layouts/skeleton'); ?>
-<?= $this->section('app'); ?>
+<?= $this->extend('layouts/app'); ?>
+<?= $this->section('main'); ?>
 
 <div class="container-fluid">
     <?= $this->include('partials/alert') ?>

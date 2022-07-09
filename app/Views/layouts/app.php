@@ -32,7 +32,7 @@
 			            </ul>
 			        </div>
 			    </nav>
-			    <?= $this->renderSection('app') ?>
+			    <?= $this->renderSection('main') ?>
 			</div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
