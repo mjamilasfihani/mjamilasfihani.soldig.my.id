@@ -51,7 +51,7 @@
                 <?php endif; ?>
               </tbody>
             </table>
-            <?php if ($page > 1): ?>
+            <?php if ($pages > 1): ?>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <?php for ($i = 1; $i <= $pages; $i++): ?>
