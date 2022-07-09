@@ -1,12 +1,12 @@
 <?= $this->extend('layouts/app'); ?>
 <?= $this->section('main'); ?>
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <?= $this->include('partials/alert') ?>
-    <h3 class="text-dark mb-3">Home</h3>
-    <div class="card shadow mb-4">
+    <h3 class="text-dark mb-3">Home (Halaman Utama)</h3>
+    <div class="card mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Produk</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Produk</h6>
         </div>
         <div class="card-body">
             <table class="table">
