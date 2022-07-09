@@ -30,7 +30,9 @@
                         <td><?= ucwords($product['product_name']); ?></td>
                         <td>RP. <?= $product['product_price']; ?></td>
                         <td><?= $product['product_stock']; ?></td>
-                        <td><img src="<?= (WRITEPATH . 'uploads/' . $product['product_code']); ?>"></td>
+                        <td>
+                            <img src="images/<?= $product['product_code']; ?>" class="img-thumbnail" style="width: 200px;">
+                        </td>
                         <td><?= strtok($product['product_code'], '.'); ?></td>
                         <td>
                             <form action="cart" method="post">
