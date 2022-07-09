@@ -1,24 +1,54 @@
 <?= $this->extend('layouts/app'); ?>
 <?= $this->section('main'); ?>
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <?= $this->include('partials/alert') ?>
-    <h3 class="text-dark mb-3">Home</h3>
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Produk</button>
-    <div class="card shadow mb-4">
+    <h3 class="text-dark mb-3">Home (Halaman Utama)</h3>
+    <div class="card mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Produk</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Produk</h6>
         </div>
         <div class="card-body">
-            <?php if (count($products) > 0): ?>
-                <!-- Table -->
-
-                <!-- End of Table -->
-            <?php else: ?>
-                Belum Ada Produk
-            <?php endif; ?>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Nama Barang</th>
+                  <th scope="col">Harga</th>
+                  <th scope="col">Stok</th>
+                  <th scope="col">Gambar</th>
+                  <th scope="col">Kode</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if (count($products) > 0): ?>
+                  <?php $num = 1; foreach($products as $product): ?>
+                    <!-- Table -->
+                    <tr>
+                        <th scope="row"><?= $num ++ ?></th>
+                        <td><?= ucwords($product['product_name']); ?></td>
+                        <td>RP. <?= $product['product_price']; ?></td>
+                        <td><?= $product['product_stock']; ?></td>
+                        <td><img src="<?= (WRITEPATH . 'uploads/' . $product['product_code']); ?>"></td>
+                        <td><?= strtok($product['product_code'], '.'); ?></td>
+                        <td>
+                            <form action="cart" method="post">
+                                <input type="number" name="product_id" value="<?= $product['product_id'] ?>" hidden>
+                                <button type="submit" class="btn btn-primary">Beli</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- End of Table -->
+                  <?php endforeach; ?>
+                <?php else: ?>
+                    Belum Ada Produk
+                <?php endif; ?>
+              </tbody>
+            </table>
         </div>
     </div>
+    <a href="cart" class="btn btn-outline-primary">Lihat Shoping Cart</a>
 </div>
 
 <?= $this->endSection(); ?>
