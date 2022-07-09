@@ -2,16 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductsModel;
-use App\Models\CartsModel;
-
 class Home extends BaseController
 {
     public function index()
     {
         // Initialize for display product in carts
         $total = 0;
-        $items = (new CartsModel)->findColumn('cart_qty');
+        $items = $this->carts->findColumn('cart_qty');
 
         if ($items)
         {
@@ -22,9 +19,23 @@ class Home extends BaseController
             }
         }
 
+        // Initialize the page
+        $page = $this->request->getGet('page');
+
+        if (! $page)
+        {
+            return redirect()->to(base_url('?page=1'));
+        }
+
+        // Initialize the limit
+        $limitLast  = $page * 10;
+        $limitFirst = $limitLast - 10;
+
         return view('welcome_message', [
-            'products' => (new ProductsModel)->findAll(),
+            'products' => $this->products->limit($limitLast, $limitFirst)->get()->getResult('array'),
             'total'    => $total,
+            'page'     => $page,
+            'pages'    => ceil(count($this->products->findAll()) / 10),
         ]);
     }
 }

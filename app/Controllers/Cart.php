@@ -56,10 +56,18 @@ class Cart extends BaseController
 		// Initialize the QTY
 		$qty = ($this->carts->where('cart_product_id', $product_id)->first())['cart_qty'] - 1;
 
-		// Update the latest total
-		$this->carts->whereIn('cart_product_id', [$product_id])
-			 ->set(['cart_qty' => $qty])
-			 ->update();
+		// Remove the product from cart, if QTY < 1
+		if ($qty < 1)
+		{
+			$this->carts->where('cart_product_id', $product_id)->delete();
+		}
+		else
+		{
+			// Update the latest total
+			$this->carts->whereIn('cart_product_id', [$product_id])
+				 ->set(['cart_qty' => $qty])
+				 ->update();
+		}
 
 		// Initialize the product
 		$this->products->update($product_id, [

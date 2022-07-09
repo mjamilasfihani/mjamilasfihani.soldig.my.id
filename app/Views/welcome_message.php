@@ -51,6 +51,13 @@
                 <?php endif; ?>
               </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <?php for ($i = 1; $i <= $pages; $i++): ?>
+                    <li class="page-item <?= ($page == $i) ? 'active' : ''; ?>"><a class="page-link" href="<?= base_url('?page=' . $i) ?>"><?= $i; ?></a></li>
+                <?php endfor; ?>
+              </ul>
+            </nav>
         </div>
     </div>
     <a href="cart" class="btn btn-outline-primary">Lihat Shoping Cart <sup><?= $total; ?></sup></a>
