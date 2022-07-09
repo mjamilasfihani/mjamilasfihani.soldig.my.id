@@ -9,8 +9,24 @@ class Products extends BaseController
 	/**
 	 * Adding new product
 	 */
-	public function new()
+	public function create()
 	{
+		// Initialize the rules
+		$validationRules = [
+			'product_image' => [
+				'label' => 'Gambar Produk',
+				'rules' => 'uploaded[product_image]'
+					. '|is_image[product_image]'
+					. '|mime_in[product_image,image/jpg,image/jpeg,image/png]'
+			]
+		];
+
+		if (! $this->validate($validationRules))
+		{
+			// Redirect back with errors notification
+			return redirect()->back()->with('errors', $this->validator->getErrors());
+		}
+
 		// Initialize the Value
 		$name  = $this->request->getPost('product_name');
 		$price = $this->request->getPost('product_price');
@@ -20,10 +36,23 @@ class Products extends BaseController
 		// We also use code as the new name for Product Image
 		$code  = $this->_setProductCode($name);
 
-		// Initiallze the Image
+		// Initialize the Image
 		$image = $this->request->getFile('product_image');
+		$ext   = $image->guessExtension();
 
-		return $code;
+		// New Image Name
+		$newImage = $code . '.' . $ext;
+
+		// Saving the Image than store any datas into Database
+		$image->move(WRITEPATH . 'uploads', $newImage);
+		(new ProductsModel)->insert([
+			'product_name'  => $name,
+			'product_price' => $price,
+			'product_stock' => $stock,
+			'product_code'  => $code = $newImage,
+		]);
+
+		return redirect()->back()->with('message', 'Produk berhasil ditambahkan');
 	}
 
 	/**
@@ -48,9 +77,9 @@ class Products extends BaseController
 
 		// Initialalize the Model
 		$model = new ProductsModel();
-		$total = $model->getFieldCount();
+		$total = (count($model->findAll()) + 1);
 
 		// Set to UPPER case (for standarization)
-		return strtoupper($code) . ($total + 001);
+		return strtoupper($code) . str_pad($total, 3, "0", STR_PAD_LEFT);
 	}
 }
