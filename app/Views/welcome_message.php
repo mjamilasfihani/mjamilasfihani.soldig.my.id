@@ -32,7 +32,12 @@
                         <td><?= $product['product_stock']; ?></td>
                         <td><img src="<?= (WRITEPATH . 'uploads/' . $product['product_code']); ?>"></td>
                         <td><?= strtok($product['product_code'], '.'); ?></td>
-                        <td></td>
+                        <td>
+                            <form action="cart" method="post">
+                                <input type="number" name="product_id" value="<?= $product['product_id'] ?>" hidden>
+                                <button type="submit" class="btn btn-primary">Beli</button>
+                            </form>
+                        </td>
                     </tr>
                     <!-- End of Table -->
                   <?php endforeach; ?>
