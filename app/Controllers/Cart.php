@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\CartsModel;
-use App\Models\ProductsModel;
-
 class Cart extends BaseController
 {
 	public function index()
@@ -24,20 +21,20 @@ class Cart extends BaseController
 		$product_id = $this->request->getPost('product_id');
 
 		// Check it for first time
-		if (count($this->cart->where('cart_product_id', $product_id)->findAll()) > 0)
+		if (count($this->carts->where('cart_product_id', $product_id)->findAll()) > 0)
 		{
 			// Initialize the QTY
-			$qty = 1 + ($this->cart->where('cart_product_id', $product_id)->first())['cart_qty'];
+			$qty = 1 + ($this->carts->where('cart_product_id', $product_id)->first())['cart_qty'];
 
 			// Update instead of Insert
-			$this->cart->whereIn('cart_product_id', [$product_id])
+			$this->carts->whereIn('cart_product_id', [$product_id])
 				 ->set(['cart_qty' => $qty])
 				 ->update();
 		}
 		else
 		{
 			// Insert directly
-			$this->cart->insert([
+			$this->carts->insert([
 				'cart_product_id' => $product_id,
 				'cart_qty'		  => 1,
 			]);
@@ -57,10 +54,10 @@ class Cart extends BaseController
 		$product_id = $this->request->getPost('product_id');
 
 		// Initialize the QTY
-		$qty = ($this->cart->where('cart_product_id', $product_id)->first())['cart_qty'] - 1;
+		$qty = ($this->carts->where('cart_product_id', $product_id)->first())['cart_qty'] - 1;
 
 		// Update the latest total
-		$this->cart->whereIn('cart_product_id', [$product_id])
+		$this->carts->whereIn('cart_product_id', [$product_id])
 			 ->set(['cart_qty' => $qty])
 			 ->update();
 
@@ -78,7 +75,7 @@ class Cart extends BaseController
 		$product_id = $this->request->getPost('product_id');
 
 		// Initialize the QTY
-		$qty = ($this->cart->where('cart_product_id', $product_id)->first())['cart_qty'];
+		$qty = ($this->carts->where('cart_product_id', $product_id)->first())['cart_qty'];
 
 		// Initialize the product
 		$this->products->update($product_id, [
@@ -86,7 +83,7 @@ class Cart extends BaseController
 		]);
 
 		// Delete the data from cart
-		$this->cart->where('cart_product_id', $product_id)->delete();
+		$this->carts->where('cart_product_id', $product_id)->delete();
 
 		return redirect()->back()->with('message', 'Sukses Membatalkan Produk');
 	}
