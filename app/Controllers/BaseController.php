@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\CartsModel;
+use App\Models\ProductsModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -38,6 +40,21 @@ abstract class BaseController extends Controller
     protected $helpers = [];
 
     /**
+     * Database Builder
+     */
+    protected $db;
+
+    /**
+     * Carts Model
+     */
+    protected $carts;
+
+    /**
+     * Products Model
+     */
+    protected $products;
+
+    /**
      * Constructor.
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -46,7 +63,10 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
         // E.g.: $this->session = \Config\Services::session();
+
+        $this->db       = db_connect();
+        $this->carts    = new CartsModel();
+        $this->products = new ProductsModel();
     }
 }

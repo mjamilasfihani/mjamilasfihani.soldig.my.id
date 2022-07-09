@@ -2,13 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductsModel;
-
 class Products extends BaseController
 {
-	/**
-	 * Adding new product
-	 */
 	public function create()
 	{
 		// Initialize the rules
@@ -45,7 +40,7 @@ class Products extends BaseController
 
 		// Saving the Image than store any datas into Database
 		$image->move(ROOTPATH . 'public/images', $newImage);
-		(new ProductsModel)->insert([
+		$this->products->insert([
 			'product_name'  => ucwords($name),
 			'product_price' => $price,
 			'product_stock' => $stock,
@@ -75,9 +70,9 @@ class Products extends BaseController
 			$code = substr($name, 2);
 		}
 
-		// Initialalize the Model
-		$model = new ProductsModel();
-		$total = (count($model->findAll()) + 1);
+		// Count the total of product before inserting into
+		// database.
+		$total = count($this->products->findAll()) + 1;
 
 		// Set to UPPER case (for standarization)
 		return strtoupper($code) . str_pad($total, 3, "0", STR_PAD_LEFT);
