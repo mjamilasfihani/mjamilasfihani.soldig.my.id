@@ -27,7 +27,7 @@ class Cart extends BaseController
 
 		return view('cart', [
 			'datas'      => $query,
-			'totalPrice' => $totalPrice,
+			'totalPrice' => $totalPrice + (float)19000,
 		]);
 	}
 
